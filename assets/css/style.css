@@ -619,7 +619,15 @@ h3.page-title {
 }
 
 .full-height {
-  height: 100vh;
+  min-height: 100vh;
+}
+
+/* Never lock content sections to 100vh on mobile */
+@media (max-width: 992px) {
+  .full-height {
+    height: auto !important;
+    min-height: auto !important;
+  }
 }
 
 /* ---- Hero Section ---- */
