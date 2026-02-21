@@ -1,9 +1,9 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
   <!-- Google Tag Manager removed -->
@@ -103,50 +103,41 @@
     </ul>
   </nav>
 
-  <!-- Nav class 2 -->
-  <nav class="hide-on-large only trigger z-depth-1">
-    <a aria-label="Toggle visibility of the mobile navbar" href="#" data-activates="slide-out"
-      class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-    <div class="name-title">
-      <a id="name" aria-label="Navigate to the beginning of the page" href="#" class="teal-text">Deepika R</a><span class="black-text">Electronics &amp; CS Engineer</span>
+  <!-- Mobile topbar (shown only on small screens) -->
+  <div class="mob-topbar" id="mobTopbar">
+    <button class="mob-burger" id="mobBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="mob-title">Deepika <strong>R.</strong></span>
+    <a href="/assets/resume/Deepika_R_Resume.pdf" download class="mob-dl-btn" aria-label="Download resume">
+      <i class="fa fa-download"></i>
+    </a>
+  </div>
+
+  <!-- Mobile drawer overlay -->
+  <div class="mob-overlay" id="mobOverlay"></div>
+
+  <!-- Mobile slide-in drawer -->
+  <nav class="mob-drawer" id="mobDrawer">
+    <div class="mob-drawer-header">
+      <span class="mob-drawer-name">Deepika <strong>R.</strong></span>
+      <p class="mob-drawer-role">VLSI · AI/ML · Python</p>
+      <button class="mob-close" id="mobClose" aria-label="Close menu">&times;</button>
     </div>
-  </nav>
-
-  <!-- Nav class 3 -->
-  <nav class="hide-on-large only">
-    <ul id="slide-out" class="side-nav">
-      <li class="bold">
-        <a aria-label="Navigate to the About section" href="#about" class="waves-effect waves-dark teal-text"><i
-            class="mdi-social-person small"></i><span>About</span></a>
-      </li>
-      <li class="bold">
-        <a aria-label="Navigate to the Experience section" href="#experience"
-          class="waves-effect waves-dark teal-text"><i
-            class="mdi-action-trending-up small"></i><span>Experience</span></a>
-      </li>
-      <li class="bold">
-        <a aria-label="Navigate to the Projects section" href="#projects" class="waves-effect waves-dark teal-text"><i
-            class="mdi-av-my-library-books small"></i><span>Projects</span></a>
-      </li>
-      <li class="bold">
-        <a aria-label="Navigate to the Skills section" href="#skills" class="waves-effect waves-dark teal-text"><i
-            class="mdi-action-assessment small"></i><span>Skills</span></a>
-      </li>
-
-      <li class="bold">
-        <a aria-label="Navigate to the Education section" href="#education" class="waves-effect waves-dark teal-text"><i
-            class="mdi-social-school small"></i><span>Education</span></a>
-      </li>
-      <li class="bold">
-        <a aria-label="Navigate to the Contact section" href="#contact" class="waves-effect waves-dark teal-text"><i
-            class="mdi-content-mail small"></i><span>Contact</span></a>
-      </li>
-      <li class="bold">
-        <a aria-label="Open Deepika's Resume in a new tab"
-          href="/assets/resume/Deepika_R_Resume.pdf" target="_blank"
-          class="waves-effect waves-dark teal-text"><i class="mdi-file-folder-open small"></i><span>Resume</span></a>
-      </li>
+    <ul class="mob-nav-list">
+      <li><a href="#about"     class="mob-nav-link"><i class="mdi-social-person"></i>      About</a></li>
+      <li><a href="#experience" class="mob-nav-link"><i class="mdi-action-trending-up"></i>  Experience</a></li>
+      <li><a href="#projects"  class="mob-nav-link"><i class="mdi-av-my-library-books"></i> Projects</a></li>
+      <li><a href="#skills"    class="mob-nav-link"><i class="mdi-action-assessment"></i>   Skills</a></li>
+      <li><a href="#education" class="mob-nav-link"><i class="mdi-social-school"></i>       Education</a></li>
+      <li><a href="#contact"   class="mob-nav-link"><i class="mdi-content-mail"></i>        Contact</a></li>
+      <li><a href="#resume"    class="mob-nav-link"><i class="mdi-file-folder-open"></i>    Resume</a></li>
     </ul>
+    <div class="mob-drawer-footer">
+      <a href="https://www.linkedin.com/in/deepika-r-3971583b1/" target="_blank" class="mob-social"><i class="fa fa-linkedin"></i></a>
+      <a href="https://github.com/" target="_blank" class="mob-social"><i class="fa fa-github"></i></a>
+      <a href="/assets/resume/Deepika_R_Resume.pdf" download class="mob-social"><i class="fa fa-download"></i></a>
+    </div>
   </nav>
 
   <!-- Main Content-->
@@ -974,11 +965,12 @@
     })
   </script>
 
-  <!-- Sidebar toggle -->
+  <!-- Sidebar toggle (desktop) -->
   <script>
     (function() {
       var btn = document.getElementById('sbToggle');
       var icon = document.getElementById('sbToggleIcon');
+      if (!btn) return;
       var collapsed = localStorage.getItem('sbCollapsed') === '1';
       if (collapsed) {
         document.body.classList.add('sb-collapsed');
@@ -993,6 +985,25 @@
           icon.classList.replace('fa-chevron-right', 'fa-chevron-left');
         }
         localStorage.setItem('sbCollapsed', isNowCollapsed ? '1' : '0');
+      });
+    })();
+  </script>
+
+  <!-- Mobile drawer -->
+  <script>
+    (function() {
+      var burger  = document.getElementById('mobBurger');
+      var close   = document.getElementById('mobClose');
+      var drawer  = document.getElementById('mobDrawer');
+      var overlay = document.getElementById('mobOverlay');
+      function openDrawer()  { drawer.classList.add('open');  overlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; }
+      if (burger)  burger.addEventListener('click', openDrawer);
+      if (close)   close.addEventListener('click', closeDrawer);
+      if (overlay) overlay.addEventListener('click', closeDrawer);
+      // Close on nav link click
+      document.querySelectorAll('.mob-nav-link').forEach(function(link) {
+        link.addEventListener('click', closeDrawer);
       });
     })();
   </script>
